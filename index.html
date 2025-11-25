@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jane Doe | Professional Portfolio</title>
+    <!-- Load Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind for Customizations -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // Enable dark mode based on 'dark' class
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-accent': '#8B5CF6', // Indigo 500 for a vibrant accent
+                        'light-bg': '#f9fafb', // Gray 50
+                        'dark-bg': '#111827', // Gray 900
+                        'dark-card': '#1f2937', // Gray 800
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <!-- Custom style block for smooth transition and initial dark mode setup -->
+    <style>
+        /* Smooth transition for theme change */
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-light-bg text-gray-800 dark:bg-dark-bg dark:text-gray-100 font-sans">
+
+    <!-- 
+        JavaScript to initialize dark mode based on local storage 
+        Must be run before the body content loads to prevent FOUC (Flash of Unstyled Content)
+    -->
+    <script>
+        // Check local storage for theme preference
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-light-bg/90 dark:bg-dark-bg/90 backdrop-blur-sm shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-20">
+            <a href="#" class="text-2xl font-bold text-primary-accent hover:text-indigo-400 transition duration-300">
+                J. Doe
+            </a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#about" class="text-gray-600 dark:text-gray-300 hover:text-primary-accent dark:hover:text-primary-accent transition duration-300">About</a>
+                <a href="#skills" class="text-gray-600 dark:text-gray-300 hover:text-primary-accent dark:hover:text-primary-accent transition duration-300">Skills</a>
+                <a href="#projects" class="text-gray-600 dark:text-gray-300 hover:text-primary-accent dark:hover:text-primary-accent transition duration-300">Projects</a>
+                <a href="#contact" class="text-gray-600 dark:text-gray-300 hover:text-primary-accent dark:hover:text-primary-accent transition duration-300">Contact</a>
+            </nav>
+            
+            <!-- Dark Mode Toggle Button (Desktop/Mobile) -->
+            <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition duration-300 focus:outline-none focus:ring-2 focus:ring-primary-accent" aria-label="Toggle dark mode">
+                <svg id="sun-icon" class="h-6 w-6 text-yellow-500 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+                <svg id="moon-icon" class="h-6 w-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-24">
+        
+        <!-- 1. Hero Section -->
+        <section id="hero" class="pt-16 pb-24 md:flex items-center justify-between">
+            <div class="md:w-3/5">
+                <span class="text-xl text-primary-accent font-semibold block mb-2">Hello, I'm</span>
+                <h1 class="text-6xl sm:text-7xl font-extrabold leading-tight">
+                    Jane Doe
+                </h1>
+                <h2 class="text-3xl sm:text-4xl text-gray-600 dark:text-gray-300 mt-2 font-light">
+                    Full Stack Developer & Technical Architect
+                </h2>
+                <p class="mt-6 text-lg max-w-2xl text-gray-700 dark:text-gray-400">
+                    I build robust, scalable web applications using modern frameworks and cutting-edge cloud technologies. Passionate about clean code and exceptional user experience.
+                </p>
+                <div class="mt-10 flex space-x-4">
+                    <a href="#projects" class="px-6 py-3 bg-primary-accent text-white font-semibold rounded-lg shadow-xl hover:bg-indigo-700 transition duration-300 transform hover:scale-105">View Projects</a>
+                    <a href="#contact" class="px-6 py-3 border border-primary-accent text-primary-accent font-semibold rounded-lg hover:bg-primary-accent/10 dark:hover:bg-primary-accent/20 transition duration-300 transform hover:scale-105">Get In Touch</a>
+                </div>
+            </div>
+            <div class="mt-12 md:mt-0 md:w-2/5 flex justify-center">
+                <!-- Mock Profile Image -->
+                <img src="https://placehold.co/300x300/8B5CF6/ffffff/png?text=JD" 
+                     alt="Profile Picture of Jane Doe" 
+                     class="rounded-full w-64 h-64 object-cover shadow-2xl border-4 border-primary-accent/50 transition duration-500 hover:shadow-primary-accent/50"
+                     onerror="this.onerror=null;this.src='https://placehold.co/300x300/8B5CF6/ffffff/png?text=JD+Profile';"
+                >
+            </div>
+        </section>
+
+        <!-- 2. About Section -->
+        <section id="about" class="py-16">
+            <h3 class="text-4xl font-bold mb-8 border-b-2 border-primary-accent/50 pb-2">About Me</h3>
+            <div class="grid md:grid-cols-2 gap-12 items-start">
+                <div>
+                    <p class="text-lg mb-4 dark:text-gray-300">
+                        I am a professional software developer with 8 years of experience specializing in the JavaScript ecosystem. My journey began with a curiosity for how things work, which quickly evolved into a career dedicated to building efficient and user-friendly digital solutions.
+                    </p>
+                    <p class="text-lg mb-4 dark:text-gray-300">
+                        I thrive in collaborative environments and have a strong background in Agile methodologies, DevOps, and cloud infrastructure (AWS/GCP). My core philosophy is to simplify complex problems into maintainable, well-tested code.
+                    </p>
+                    <p class="text-lg dark:text-gray-300">
+                        When I'm not coding, you can find me hiking local trails or experimenting with new recipes in the kitchen. I believe in continuous learning—both professionally and personally.
+                    </p>
+                </div>
+                <!-- Mini Stats Card -->
+                <div class="p-6 bg-white dark:bg-dark-card rounded-xl shadow-xl space-y-4">
+                    <h4 class="text-2xl font-semibold text-primary-accent mb-4">My Impact</h4>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-4xl font-bold text-gray-800 dark:text-gray-100">8+</span>
+                        <p class="text-gray-600 dark:text-gray-400">Years of Professional Experience</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-4xl font-bold text-gray-800 dark:text-gray-100">35+</span>
+                        <p class="text-gray-600 dark:text-gray-400">Projects Delivered Successfully</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-4xl font-bold text-gray-800 dark:text-gray-100">99%</span>
+                        <p class="text-gray-600 dark:text-gray-400">Code Coverage on Core Services</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Skills Section -->
+        <section id="skills" class="py-16">
+            <h3 class="text-4xl font-bold mb-8 border-b-2 border-primary-accent/50 pb-2">Technical Skills</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+                
+                <!-- Skill Card Template -->
+                <div class="p-4 bg-white dark:bg-dark-card rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:scale-[1.02]">
+                    <span class="text-2xl text-primary-accent block mb-2">
+                        <!-- Placeholder Icon: Database -->
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10m0 0h16m0 0V7m0 10v1a2 2 0 01-2 2H6a2 2 0 01-2-2v-1m16-10V4a2 2 0 00-2-2H6a2 2 0 00-2 2v3m16 0v7m-12 3h4m-4 0v-4m4 4v-4m-8 4h4m-4 0v-4m4 4v-4"></path></svg>
+                    </span>
+                    <h4 class="font-semibold text-xl">Backend</h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Node.js, Express, Python, Django, REST/GraphQL</p>
+                </div>
+
+                <div class="p-4 bg-white dark:bg-dark-card rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:scale-[1.02]">
+                    <span class="text-2xl text-primary-accent block mb-2">
+                        <!-- Placeholder Icon: Code -->
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    </span>
+                    <h4 class="font-semibold text-xl">Frontend</h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">React, Vue.js, TypeScript, Tailwind CSS, SASS</p>
+                </div>
+                
+                <div class="p-4 bg-white dark:bg-dark-card rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:scale-[1.02]">
+                    <span class="text-2xl text-primary-accent block mb-2">
+                        <!-- Placeholder Icon: Cloud -->
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
+                    </span>
+                    <h4 class="font-semibold text-xl">DevOps/Cloud</h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">AWS (Lambda, S3), Docker, Kubernetes, Terraform, CI/CD</p>
+                </div>
+                
+                <div class="p-4 bg-white dark:bg-dark-card rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:scale-[1.02]">
+                    <span class="text-2xl text-primary-accent block mb-2">
+                        <!-- Placeholder Icon: Server -->
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V7a2 2 0 012-2h14a2 2 0 012 2v3a2 2 0 01-2 2M5 12h14m-8 4l-4 4m0-4l4 4m8-4l4 4m0-4l-4 4"></path></svg>
+                    </span>
+                    <h4 class="font-semibold text-xl">Databases</h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">PostgreSQL, MongoDB, Redis, Firebase/Firestore</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Projects Section -->
+        <section id="projects" class="py-16">
+            <h3 class="text-4xl font-bold mb-8 border-b-2 border-primary-accent/50 pb-2">Featured Projects</h3>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Project Card 1 -->
+                <div class="bg-white dark:bg-dark-card rounded-xl shadow-xl overflow-hidden group">
+                    <img src="https://placehold.co/600x400/8B5CF6/ffffff/png?text=E-Commerce+Platform" 
+                         alt="Project 1: E-Commerce Platform" 
+                         class="w-full h-48 object-cover transition duration-500 group-hover:scale-105"
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400/8B5CF6/ffffff/png?text=Project+One';"
+                    >
+                    <div class="p-6">
+                        <h4 class="text-2xl font-semibold mb-2 text-primary-accent">Modern E-Commerce Platform</h4>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">A full-stack solution built with React, Node.js, and MongoDB, featuring secure payment integration and a real-time inventory system.</p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="text-xs font-medium px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-300">React</span>
+                            <span class="text-xs font-medium px-2.5 py-0.5 rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">Node.js</span>
+                            <span class="text-xs font-medium px-2.5 py-0.5 rounded-full bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="bg-white dark:bg-dark-card rounded-xl shadow-xl overflow-hidden group">
+                    <img src="https://placehold.co/600x400/5B21B6/ffffff/png?text=AI+Dashboard" 
+                         alt="Project 2: AI Analytics Dashboard" 
+                         class="w-full h-48 object-cover transition duration-500 group-hover:scale-105"
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400/5B21B6/ffffff/png?text=Project+Two';"
+                    >
+                    <div class="p-6">
+                        <h4 class="text-2xl font-semibold mb-2 text-primary-accent">AI-Powered Analytics Dashboard</h4>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Developed a complex real-time dashboard using Vue.js and a Python/Django backend for processing and visualizing large data streams.</p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="text-xs font-medium px-2.5 py-0.5 rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">Vue.js</span>
+                            <span class="text-xs font-medium px-2.5 py-0.5 rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">Python</span>
+                            <span class="text-xs font-medium px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">Django</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project Card 3 -->
+                <div class="bg-white dark:bg-dark-card rounded-xl shadow-xl overflow-hidden group">
+                    <img src="https://placehold.co/600x400/4F46E5/ffffff/png?text=Cloud+Microservice" 
+                         alt="Project 3: Cloud Microservice Architecture" 
+                         class="w-full h-48 object-cover transition duration-500 group-hover:scale-105"
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400/4F46E5/ffffff/png?text=Project+Three';"
+                    >
+                    <div class="p-6">
+                        <h4 class="text-2xl font-semibold mb-2 text-primary-accent">Serverless Microservice</h4>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Designed and deployed a highly-available, serverless API using AWS Lambda, API Gateway, and Terraform for infrastructure as code.</p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="text-xs font-medium px-2.5 py-0.5 rounded-full bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300">AWS Lambda</span>
+                            <span class="text-xs font-medium px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">Terraform</span>
+                            <span class="text-xs font-medium px-2.5 py-0.5 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300">Serverless</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 5. Contact Section -->
+        <section id="contact" class="py-16">
+            <h3 class="text-4xl font-bold mb-8 border-b-2 border-primary-accent/50 pb-2">Get In Touch</h3>
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Contact Info -->
+                <div class="space-y-6">
+                    <p class="text-lg dark:text-gray-300">
+                        I am currently open to new opportunities, especially challenging roles in distributed systems or front-end architecture. Whether you have a question or just want to connect, feel free to reach out!
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <svg class="w-6 h-6 text-primary-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            <span class="text-lg">jane.doe@example.com</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <svg class="w-6 h-6 text-primary-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.128a11.058 11.058 0 006.505 6.505l1.128-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            <span class="text-lg">(555) 123-4567</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <!-- Placeholder Icon: Location -->
+                            <svg class="w-6 h-6 text-primary-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            <span class="text-lg">San Francisco, CA</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mock Contact Form -->
+                <div class="p-6 bg-white dark:bg-dark-card rounded-xl shadow-xl">
+                    <form onsubmit="handleFormSubmit(event)">
+                        <div class="mb-4">
+                            <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Name</label>
+                            <input type="text" id="name" name="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-accent focus:ring-primary-accent p-2 bg-gray-50 dark:bg-gray-700 dark:border-gray-600" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+                            <input type="email" id="email" name="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-accent focus:ring-primary-accent p-2 bg-gray-50 dark:bg-gray-700 dark:border-gray-600" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Message</label>
+                            <textarea id="message" name="message" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-accent focus:ring-primary-accent p-2 bg-gray-50 dark:bg-gray-700 dark:border-gray-600" required></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-accent hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-accent transition duration-300">
+                            Send Message
+                        </button>
+                    </form>
+                    <div id="form-message" class="mt-4 text-center text-sm font-medium hidden"></div>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-dark-card border-t border-gray-200 dark:border-gray-700 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 dark:text-gray-400">
+            <p>&copy; 2025 Jane Doe. All rights reserved.</p>
+            <div class="mt-2 space-x-4 text-sm">
+                <a href="https://linkedin.com" target="_blank" class="hover:text-primary-accent transition duration-300">LinkedIn</a>
+                <a href="https://github.com" target="_blank" class="hover:text-primary-accent transition duration-300">GitHub</a>
+                <a href="mailto:jane.doe@example.com" class="hover:text-primary-accent transition duration-300">Email</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Theme Toggle and Form Handling -->
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+        const htmlElement = document.documentElement;
+
+        // Function to update the icons based on the current theme
+        function updateIcons(isDarkMode) {
+            if (isDarkMode) {
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            } else {
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+            }
+        }
+
+        // Initialize icons based on current theme class
+        updateIcons(htmlElement.classList.contains('dark'));
+
+        // Theme Toggle Logic
+        themeToggle.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                // Switch to light mode
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                updateIcons(false);
+            } else {
+                // Switch to dark mode
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                updateIcons(true);
+            }
+        });
+
+        // Mock form submission handler (since this is a static file)
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const formMessage = document.getElementById('form-message');
+            formMessage.classList.remove('hidden');
+            formMessage.classList.remove('text-red-500', 'text-green-500');
+            formMessage.innerHTML = '';
+            
+            const name = document.getElementById('name').value;
+            
+            // Show a success message
+            formMessage.classList.add('text-green-500');
+            formMessage.innerHTML = `Thank you, ${name}! Your message has been received. I'll be in touch soon. (This is a mock submission)`;
+            
+            // Clear the form fields after a short delay
+            setTimeout(() => {
+                event.target.reset();
+            }, 1000);
+        }
+    </script>
+
+</body>
+</html>
